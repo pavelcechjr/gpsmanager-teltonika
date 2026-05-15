@@ -11,7 +11,7 @@ Designed for Teltonika FMC/FMB series GPS trackers using the Codec 8 / Codec 8 E
 - TCP listener for Teltonika Codec 8 / 8 Extended (built-in, no external service)
 - Automatic trip detection (start when `speed ≥ 3 km/h`, close after configurable idle)
 - Reverse geocoding via Nominatim (OpenStreetMap) with 30-day Redis cache
-- Trip log ("Kniha jízd") with PDF & XLSX export (Czech-localized, tax-compliance ready)
+- Trip log ("Drive Book") with PDF & XLSX export (Czech-localized, tax-compliance ready)
 - Real-time live map with smooth marker animation (2 s polling)
 
 **OBD2 telemetry (per trip)**

@@ -23,7 +23,7 @@ Designed for Teltonika FMC/FMB series GPS trackers using the Codec 8 / Codec 8 E
 - Engine run time, MIL-on distance
 
 **Hybrid / EV support** (requires Teltonika Configurator setup with manufacturer UDS PIDs)
-- Trakční baterie SOC, voltage, current, temperature
+- Traction Battery SOC, voltage, current, temperature
 - Pure-EV mode detection, charging status (AC/DC/done)
 - Electric consumption tracking (kWh/100km) alongside fuel consumption
 - Eco badge in vehicle lists for hybrid / PHEV / EV vehicles

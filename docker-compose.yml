@@ -1,0 +1,53 @@
+# GPSManager — Docker Compose stack
+# Run:  docker compose up -d
+# Then: docker compose exec app php artisan migrate --force
+
+services:
+  app:
+    image: serversideup/php:8.4-fpm-nginx-alpine
+    container_name: gpsmanager_app
+    restart: unless-stopped
+    ports:
+      - "8085:8080"          # web UI
+      - "5027:5027"          # Teltonika TCP listener (forward your public port here)
+    volumes:
+      - ./:/var/www/html
+    environment:
+      PHP_OPCACHE_ENABLE: 1
+      AUTORUN_ENABLED: "false"   # supervisor manages apache/cron/listener manually
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: gpsmanager_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gpsmanager
+      POSTGRES_USER: gpsmanager
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme-strong-password}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gpsmanager"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: gpsmanager_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:
